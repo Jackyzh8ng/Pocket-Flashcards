@@ -1,0 +1,692 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9B5C062A2E69096E0066DE74 /* Pocket_FlashcardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06292E69096E0066DE74 /* Pocket_FlashcardsApp.swift */; };
+		9B5C065C2E690B880066DE74 /* DeckDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C065B2E690B880066DE74 /* DeckDetailView.swift */; };
+		9B5C065E2E690B940066DE74 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C065D2E690B940066DE74 /* StudyView.swift */; };
+		9B5C06602E690BA00066DE74 /* EditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C065F2E690BA00066DE74 /* EditCardView.swift */; };
+		9B5C06622E690BAC0066DE74 /* ProgressViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06612E690BAC0066DE74 /* ProgressViewScreen.swift */; };
+		9B5C06642E690C390066DE74 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06632E690C390066DE74 /* Deck.swift */; };
+		9B5C06662E690C430066DE74 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06652E690C3D0066DE74 /* Card.swift */; };
+		9B5C06682E690C4B0066DE74 /* SessionProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06672E690C450066DE74 /* SessionProgress.swift */; };
+		9B5C06722E690F5F0066DE74 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06712E690F5D0066DE74 /* HomeView.swift */; };
+		9B5C06752E6CD01F0066DE74 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C066D2E690D040066DE74 /* DataStore.swift */; };
+		9B5C06762E6CD02B0066DE74 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C066E2E690D0A0066DE74 /* MockData.swift */; };
+		9B5C06782E6CD2590066DE74 /* AddDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06772E6CD2540066DE74 /* AddDeckView.swift */; };
+		9B5C067A2E6CEE4B0066DE74 /* AddCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06792E6CEE490066DE74 /* AddCardView.swift */; };
+		9B5C067D2E6E837B0066DE74 /* RenameDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C067C2E6E836E0066DE74 /* RenameDeckView.swift */; };
+		9B5C067F2E6E86CA0066DE74 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C067E2E6E86C20066DE74 /* Persistence.swift */; };
+		9B5C06832E6F46D20066DE74 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06822E6F46CF0066DE74 /* QuizView.swift */; };
+		9B5C06852E6F485C0066DE74 /* QuizFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06842E6F48580066DE74 /* QuizFinishView.swift */; };
+		9B5EF7EC2E6F5EE5006F1CAB /* QuizResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EF7EB2E6F5EE2006F1CAB /* QuizResult.swift */; };
+		9B5EF7EE2E6F5EFC006F1CAB /* StatsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EF7ED2E6F5EF7006F1CAB /* StatsPersistence.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9B5C06372E69096F0066DE74 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B5C061E2E69096E0066DE74 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B5C06252E69096E0066DE74;
+			remoteInfo = "Pocket Flashcards";
+		};
+		9B5C06412E69096F0066DE74 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B5C061E2E69096E0066DE74 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B5C06252E69096E0066DE74;
+			remoteInfo = "Pocket Flashcards";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9B5C06262E69096E0066DE74 /* Pocket Flashcards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pocket Flashcards.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B5C06292E69096E0066DE74 /* Pocket_FlashcardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pocket_FlashcardsApp.swift; sourceTree = "<group>"; };
+		9B5C06362E69096F0066DE74 /* Pocket FlashcardsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pocket FlashcardsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B5C06402E69096F0066DE74 /* Pocket FlashcardsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pocket FlashcardsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B5C065B2E690B880066DE74 /* DeckDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckDetailView.swift; sourceTree = "<group>"; };
+		9B5C065D2E690B940066DE74 /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
+		9B5C065F2E690BA00066DE74 /* EditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardView.swift; sourceTree = "<group>"; };
+		9B5C06612E690BAC0066DE74 /* ProgressViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewScreen.swift; sourceTree = "<group>"; };
+		9B5C06632E690C390066DE74 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		9B5C06652E690C3D0066DE74 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		9B5C06672E690C450066DE74 /* SessionProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionProgress.swift; sourceTree = "<group>"; };
+		9B5C06692E690C520066DE74 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		9B5C066A2E690C5A0066DE74 /* DeckDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckDetailViewModel.swift; sourceTree = "<group>"; };
+		9B5C066B2E690C620066DE74 /* StudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewModel.swift; sourceTree = "<group>"; };
+		9B5C066C2E690C680066DE74 /* EditCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewModel.swift; sourceTree = "<group>"; };
+		9B5C066D2E690D040066DE74 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		9B5C066E2E690D0A0066DE74 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		9B5C06712E690F5D0066DE74 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		9B5C06772E6CD2540066DE74 /* AddDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeckView.swift; sourceTree = "<group>"; };
+		9B5C06792E6CEE490066DE74 /* AddCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardView.swift; sourceTree = "<group>"; };
+		9B5C067C2E6E836E0066DE74 /* RenameDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDeckView.swift; sourceTree = "<group>"; };
+		9B5C067E2E6E86C20066DE74 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		9B5C06822E6F46CF0066DE74 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
+		9B5C06842E6F48580066DE74 /* QuizFinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizFinishView.swift; sourceTree = "<group>"; };
+		9B5EF7EB2E6F5EE2006F1CAB /* QuizResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResult.swift; sourceTree = "<group>"; };
+		9B5EF7ED2E6F5EF7006F1CAB /* StatsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsPersistence.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9B5C06282E69096E0066DE74 /* Pocket Flashcards */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Pocket Flashcards";
+			sourceTree = "<group>";
+		};
+		9B5C06392E69096F0066DE74 /* Pocket FlashcardsTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Pocket FlashcardsTests";
+			sourceTree = "<group>";
+		};
+		9B5C06432E69096F0066DE74 /* Pocket FlashcardsUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Pocket FlashcardsUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9B5C06232E69096E0066DE74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B5C06332E69096F0066DE74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B5C063D2E69096F0066DE74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9B5C061D2E69096E0066DE74 = {
+			isa = PBXGroup;
+			children = (
+				9B5C06582E690B150066DE74 /* Shared */,
+				9B5C06572E690B100066DE74 /* Services */,
+				9B5C06562E690B090066DE74 /* ViewModels */,
+				9B5C06552E690B010066DE74 /* Models */,
+				9B5C06542E690AFA0066DE74 /* Screens */,
+				9B5C06532E690AE60066DE74 /* App */,
+				9B5C06282E69096E0066DE74 /* Pocket Flashcards */,
+				9B5C06392E69096F0066DE74 /* Pocket FlashcardsTests */,
+				9B5C06432E69096F0066DE74 /* Pocket FlashcardsUITests */,
+				9B5C06272E69096E0066DE74 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9B5C06272E69096E0066DE74 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9B5C06262E69096E0066DE74 /* Pocket Flashcards.app */,
+				9B5C06362E69096F0066DE74 /* Pocket FlashcardsTests.xctest */,
+				9B5C06402E69096F0066DE74 /* Pocket FlashcardsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9B5C06532E690AE60066DE74 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				9B5C06292E69096E0066DE74 /* Pocket_FlashcardsApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		9B5C06542E690AFA0066DE74 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				9B5C06842E6F48580066DE74 /* QuizFinishView.swift */,
+				9B5C06822E6F46CF0066DE74 /* QuizView.swift */,
+				9B5C067C2E6E836E0066DE74 /* RenameDeckView.swift */,
+				9B5C06792E6CEE490066DE74 /* AddCardView.swift */,
+				9B5C06772E6CD2540066DE74 /* AddDeckView.swift */,
+				9B5C06712E690F5D0066DE74 /* HomeView.swift */,
+				9B5C065B2E690B880066DE74 /* DeckDetailView.swift */,
+				9B5C065D2E690B940066DE74 /* StudyView.swift */,
+				9B5C065F2E690BA00066DE74 /* EditCardView.swift */,
+				9B5C06612E690BAC0066DE74 /* ProgressViewScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		9B5C06552E690B010066DE74 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9B5EF7EB2E6F5EE2006F1CAB /* QuizResult.swift */,
+				9B5C06672E690C450066DE74 /* SessionProgress.swift */,
+				9B5C06652E690C3D0066DE74 /* Card.swift */,
+				9B5C06632E690C390066DE74 /* Deck.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9B5C06562E690B090066DE74 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9B5C066C2E690C680066DE74 /* EditCardViewModel.swift */,
+				9B5C066B2E690C620066DE74 /* StudyViewModel.swift */,
+				9B5C066A2E690C5A0066DE74 /* DeckDetailViewModel.swift */,
+				9B5C06692E690C520066DE74 /* HomeViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		9B5C06572E690B100066DE74 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9B5EF7ED2E6F5EF7006F1CAB /* StatsPersistence.swift */,
+				9B5C067E2E6E86C20066DE74 /* Persistence.swift */,
+				9B5C066E2E690D0A0066DE74 /* MockData.swift */,
+				9B5C066D2E690D040066DE74 /* DataStore.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9B5C06582E690B150066DE74 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9B5C06252E69096E0066DE74 /* Pocket Flashcards */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B5C064A2E69096F0066DE74 /* Build configuration list for PBXNativeTarget "Pocket Flashcards" */;
+			buildPhases = (
+				9B5C06222E69096E0066DE74 /* Sources */,
+				9B5C06232E69096E0066DE74 /* Frameworks */,
+				9B5C06242E69096E0066DE74 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9B5C06282E69096E0066DE74 /* Pocket Flashcards */,
+			);
+			name = "Pocket Flashcards";
+			packageProductDependencies = (
+			);
+			productName = "Pocket Flashcards";
+			productReference = 9B5C06262E69096E0066DE74 /* Pocket Flashcards.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9B5C06352E69096F0066DE74 /* Pocket FlashcardsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B5C064D2E69096F0066DE74 /* Build configuration list for PBXNativeTarget "Pocket FlashcardsTests" */;
+			buildPhases = (
+				9B5C06322E69096F0066DE74 /* Sources */,
+				9B5C06332E69096F0066DE74 /* Frameworks */,
+				9B5C06342E69096F0066DE74 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B5C06382E69096F0066DE74 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9B5C06392E69096F0066DE74 /* Pocket FlashcardsTests */,
+			);
+			name = "Pocket FlashcardsTests";
+			packageProductDependencies = (
+			);
+			productName = "Pocket FlashcardsTests";
+			productReference = 9B5C06362E69096F0066DE74 /* Pocket FlashcardsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9B5C063F2E69096F0066DE74 /* Pocket FlashcardsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B5C06502E69096F0066DE74 /* Build configuration list for PBXNativeTarget "Pocket FlashcardsUITests" */;
+			buildPhases = (
+				9B5C063C2E69096F0066DE74 /* Sources */,
+				9B5C063D2E69096F0066DE74 /* Frameworks */,
+				9B5C063E2E69096F0066DE74 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B5C06422E69096F0066DE74 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9B5C06432E69096F0066DE74 /* Pocket FlashcardsUITests */,
+			);
+			name = "Pocket FlashcardsUITests";
+			packageProductDependencies = (
+			);
+			productName = "Pocket FlashcardsUITests";
+			productReference = 9B5C06402E69096F0066DE74 /* Pocket FlashcardsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9B5C061E2E69096E0066DE74 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					9B5C06252E69096E0066DE74 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					9B5C06352E69096F0066DE74 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 9B5C06252E69096E0066DE74;
+					};
+					9B5C063F2E69096F0066DE74 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 9B5C06252E69096E0066DE74;
+					};
+				};
+			};
+			buildConfigurationList = 9B5C06212E69096E0066DE74 /* Build configuration list for PBXProject "Pocket Flashcards" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9B5C061D2E69096E0066DE74;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 9B5C06272E69096E0066DE74 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9B5C06252E69096E0066DE74 /* Pocket Flashcards */,
+				9B5C06352E69096F0066DE74 /* Pocket FlashcardsTests */,
+				9B5C063F2E69096F0066DE74 /* Pocket FlashcardsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9B5C06242E69096E0066DE74 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B5C06342E69096F0066DE74 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B5C063E2E69096F0066DE74 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9B5C06222E69096E0066DE74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B5C06602E690BA00066DE74 /* EditCardView.swift in Sources */,
+				9B5C067F2E6E86CA0066DE74 /* Persistence.swift in Sources */,
+				9B5C06852E6F485C0066DE74 /* QuizFinishView.swift in Sources */,
+				9B5EF7EC2E6F5EE5006F1CAB /* QuizResult.swift in Sources */,
+				9B5C06782E6CD2590066DE74 /* AddDeckView.swift in Sources */,
+				9B5C06762E6CD02B0066DE74 /* MockData.swift in Sources */,
+				9B5C06662E690C430066DE74 /* Card.swift in Sources */,
+				9B5C065C2E690B880066DE74 /* DeckDetailView.swift in Sources */,
+				9B5C06722E690F5F0066DE74 /* HomeView.swift in Sources */,
+				9B5C067A2E6CEE4B0066DE74 /* AddCardView.swift in Sources */,
+				9B5C06752E6CD01F0066DE74 /* DataStore.swift in Sources */,
+				9B5C062A2E69096E0066DE74 /* Pocket_FlashcardsApp.swift in Sources */,
+				9B5C067D2E6E837B0066DE74 /* RenameDeckView.swift in Sources */,
+				9B5C06682E690C4B0066DE74 /* SessionProgress.swift in Sources */,
+				9B5C06642E690C390066DE74 /* Deck.swift in Sources */,
+				9B5C06622E690BAC0066DE74 /* ProgressViewScreen.swift in Sources */,
+				9B5EF7EE2E6F5EFC006F1CAB /* StatsPersistence.swift in Sources */,
+				9B5C06832E6F46D20066DE74 /* QuizView.swift in Sources */,
+				9B5C065E2E690B940066DE74 /* StudyView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B5C06322E69096F0066DE74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B5C063C2E69096F0066DE74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9B5C06382E69096F0066DE74 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B5C06252E69096E0066DE74 /* Pocket Flashcards */;
+			targetProxy = 9B5C06372E69096F0066DE74 /* PBXContainerItemProxy */;
+		};
+		9B5C06422E69096F0066DE74 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B5C06252E69096E0066DE74 /* Pocket Flashcards */;
+			targetProxy = 9B5C06412E69096F0066DE74 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9B5C06482E69096F0066DE74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9B5C06492E69096F0066DE74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9B5C064B2E69096F0066DE74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Pocket Flashcards/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.myorganization.Pocket-Flashcards";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9B5C064C2E69096F0066DE74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Pocket Flashcards/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.myorganization.Pocket-Flashcards";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9B5C064E2E69096F0066DE74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.myorganization.Pocket-FlashcardsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pocket Flashcards.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pocket Flashcards";
+			};
+			name = Debug;
+		};
+		9B5C064F2E69096F0066DE74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.myorganization.Pocket-FlashcardsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pocket Flashcards.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pocket Flashcards";
+			};
+			name = Release;
+		};
+		9B5C06512E69096F0066DE74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.myorganization.Pocket-FlashcardsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Pocket Flashcards";
+			};
+			name = Debug;
+		};
+		9B5C06522E69096F0066DE74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.myorganization.Pocket-FlashcardsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Pocket Flashcards";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9B5C06212E69096E0066DE74 /* Build configuration list for PBXProject "Pocket Flashcards" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B5C06482E69096F0066DE74 /* Debug */,
+				9B5C06492E69096F0066DE74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B5C064A2E69096F0066DE74 /* Build configuration list for PBXNativeTarget "Pocket Flashcards" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B5C064B2E69096F0066DE74 /* Debug */,
+				9B5C064C2E69096F0066DE74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B5C064D2E69096F0066DE74 /* Build configuration list for PBXNativeTarget "Pocket FlashcardsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B5C064E2E69096F0066DE74 /* Debug */,
+				9B5C064F2E69096F0066DE74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B5C06502E69096F0066DE74 /* Build configuration list for PBXNativeTarget "Pocket FlashcardsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B5C06512E69096F0066DE74 /* Debug */,
+				9B5C06522E69096F0066DE74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9B5C061E2E69096E0066DE74 /* Project object */;
+}
