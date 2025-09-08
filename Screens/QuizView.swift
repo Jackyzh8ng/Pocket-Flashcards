@@ -139,6 +139,7 @@ struct QuizView: View {
         // Navigate to results when finished
         .navigationDestination(isPresented: $finished) {
             QuizFinishView(
+                deckId: deck.id,
                 correct: correct,
                 wrong: wrong,
                 total: total,

@@ -3,6 +3,8 @@ import Combine
 
 final class DataStore: ObservableObject {
     @Published private(set) var decks: [Deck] = []
+    @Published private(set) var quizHistory: [QuizResult] = []
+
 
     private var cancellables = Set<AnyCancellable>()
     private let autosave: Bool
@@ -20,6 +22,19 @@ final class DataStore: ObservableObject {
             // Write the initial state so subsequent launches load
             try? Persistence.save(self.decks)
         }
+        DispatchQueue.global(qos: .userInitiated).async {
+            let loadedStats = (try? StatsPersistence.load()) ?? []
+            DispatchQueue.main.async { self.quizHistory = loadedStats }
+        }
+
+        // Also autosave quizHistory on change (like you do for decks)
+        $quizHistory
+            .dropFirst()
+            .debounce(for: .milliseconds(250), scheduler: DispatchQueue.main)
+            .sink { history in
+                DispatchQueue.global(qos: .utility).async { try? StatsPersistence.save(history) }
+            }
+            .store(in: &cancellables)
 
         // Autosave on changes (small debounce to batch edits)
         if autosave {
@@ -106,5 +121,22 @@ final class DataStore: ObservableObject {
         d.cards.shuffle()
         decks[i] = d   // reassign so @Published updates
     }
+    
+    func recordQuizResult(deckId: UUID, correct: Int, wrong: Int, total: Int, elapsedSeconds: Int) {
+        let result = QuizResult(
+            id: UUID(), deckId: deckId, date: Date(),
+            correct: correct, wrong: wrong, total: total, elapsedSeconds: elapsedSeconds
+        )
+        quizHistory.insert(result, at: 0)
+    }
+
+    func statsForDeck(_ deckId: UUID) -> (sessions: Int, avgAccuracy: Double, bestAccuracy: Double) {
+        let results = quizHistory.filter { $0.deckId == deckId }
+        guard !results.isEmpty else { return (0, 0, 0) }
+        let avg = results.map(\.accuracy).reduce(0, +) / Double(results.count)
+        let best = results.map(\.accuracy).max() ?? 0
+        return (results.count, avg, best)
+    }
+
 
 }
