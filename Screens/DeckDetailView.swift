@@ -36,7 +36,8 @@ struct DeckDetailView: View {
                         onStudy: { startStudy = true },
                         onAdd: { showAddCard = true },
                         onShuffle: {
-                            startStudy = true
+                            store.shuffleDeck(d.id)
+//                            startStudy = true
                         },
                         onQuiz: {
                             store.shuffleDeck(d.id)   // shuffle first…
