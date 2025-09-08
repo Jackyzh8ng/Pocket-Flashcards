@@ -106,5 +106,19 @@ final class DataStore: ObservableObject {
         d.cards.shuffle()
         decks[i] = d   // reassign so @Published updates
     }
+    
+    // Add many cards at once
+    func addCards(_ pairs: [(String, String)], to deckId: UUID) {
+        guard let i = decks.firstIndex(where: { $0.id == deckId }) else { return }
+        var d = decks[i]
+        for (front, back) in pairs {
+            let f = front.trimmingCharacters(in: .whitespacesAndNewlines)
+            let b = back .trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !f.isEmpty, !b.isEmpty else { continue }
+            d.cards.append(Card(frontText: f, backText: b, deckId: deckId))
+        }
+        decks[i] = d // publish change
+    }
+
 
 }

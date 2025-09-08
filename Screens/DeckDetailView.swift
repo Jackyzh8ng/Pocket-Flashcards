@@ -9,6 +9,8 @@ struct DeckDetailView: View {
     @State private var editingCard: Card?
     @State private var renamingDeck  = false
     @State private var startQuiz     = false
+    @State private var showBulkAdd = false
+
 
     @State private var searchText = ""
 
@@ -40,7 +42,8 @@ struct DeckDetailView: View {
                         onQuiz: {
                             store.shuffleDeck(d.id)   // shuffle first…
                             startQuiz = true          // …then navigate
-                        }
+                        },
+                        onBulkAdd: { showBulkAdd = true }
                     )
 
                     CardsSection(
@@ -75,6 +78,11 @@ struct DeckDetailView: View {
                     RenameDeckView(deck: d)
                         .environmentObject(store)
                 }
+                .sheet(isPresented: $showBulkAdd) {
+                    BulkAddCardsView(deckId: d.id)
+                        .environmentObject(store)
+                }
+
                 .navigationDestination(isPresented: $startStudy) {
                     if let fresh = store.decks.first(where: { $0.id == deck.id }) {
                         StudyView(deck: fresh)
@@ -105,31 +113,37 @@ private struct HeaderSection: View {
     let onAdd: () -> Void
     let onShuffle: () -> Void
     let onQuiz: () -> Void
+    let onBulkAdd: () -> Void
 
     var body: some View {
         Section {
             Text("\(cardCount) cards")
                 .foregroundStyle(.secondary)
 
-            HStack {
-                Button("Study", action: onStudy)
-                    .buttonStyle(.borderedProminent)
-                    .disabled(cardCount == 0)
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Button("Study", action: onStudy)
+                        .buttonStyle(.borderedProminent)
+                        .disabled(cardCount == 0)
 
-                Button("Add Card", action: onAdd)
-                    .buttonStyle(.bordered)
+                    Button("Shuffle", action: onShuffle)
+                        .buttonStyle(.bordered)
+                        .disabled(cardCount == 0)
 
-                Button("Shuffle", action: onShuffle)
-                    .buttonStyle(.bordered)
-                    .disabled(cardCount == 0)
+                    Button("Quiz", action: onQuiz)
+                        .buttonStyle(.bordered)
+                        .disabled(cardCount == 0)
+                }
 
-                Button("Quiz", action: onQuiz)
-                    .buttonStyle(.bordered)
-                    .disabled(cardCount == 0)
+                HStack {
+                    Button("Add Card", action: onAdd).buttonStyle(.bordered)
+                    Button("Bulk Add", action: onBulkAdd).buttonStyle(.bordered)
+                }
             }
         }
     }
 }
+
 
 private struct CardsSection: View {
     let deck: Deck
