@@ -106,5 +106,40 @@ final class DataStore: ObservableObject {
         d.cards.shuffle()
         decks[i] = d   // reassign so @Published updates
     }
+    
+    // Add many cards at once
+    func addCards(_ pairs: [(String, String)], to deckId: UUID) {
+        guard let i = decks.firstIndex(where: { $0.id == deckId }) else { return }
+        var d = decks[i]
+        for (front, back) in pairs {
+            let f = front.trimmingCharacters(in: .whitespacesAndNewlines)
+            let b = back .trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !f.isEmpty, !b.isEmpty else { continue }
+            d.cards.append(Card(frontText: f, backText: b, deckId: deckId))
+        }
+        decks[i] = d // publish change
+    }
+    
+    // Toggle mark/unmark for a card
+    func toggleMarked(_ cardId: UUID, in deckId: UUID) {
+        guard let di = decks.firstIndex(where: { $0.id == deckId }) else { return }
+        guard let ci = decks[di].cards.firstIndex(where: { $0.id == cardId }) else { return }
+        var d = decks[di]
+        d.cards[ci].isMarked.toggle()
+        decks[di] = d
+    }
+
+    // Convenience: count & list of marked cards in a deck
+    func markedCount(_ deckId: UUID) -> Int {
+        guard let d = decks.first(where: { $0.id == deckId }) else { return 0 }
+        return d.cards.filter(\.isMarked).count
+    }
+
+    func markedCards(in deckId: UUID) -> [Card] {
+        guard let d = decks.first(where: { $0.id == deckId }) else { return [] }
+        return d.cards.filter { $0.isMarked }
+    }
+
+
 
 }

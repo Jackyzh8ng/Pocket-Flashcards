@@ -26,6 +26,7 @@
 		9B5C06852E6F485C0066DE74 /* QuizFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C06842E6F48580066DE74 /* QuizFinishView.swift */; };
 		9B5EF7EC2E6F5EE5006F1CAB /* QuizResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EF7EB2E6F5EE2006F1CAB /* QuizResult.swift */; };
 		9B5EF7EE2E6F5EFC006F1CAB /* StatsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EF7ED2E6F5EF7006F1CAB /* StatsPersistence.swift */; };
+		9B5EF7F22E6F691A006F1CAB /* BulkAddCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EF7F12E6F6913006F1CAB /* BulkAddCardsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		9B5C06842E6F48580066DE74 /* QuizFinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizFinishView.swift; sourceTree = "<group>"; };
 		9B5EF7EB2E6F5EE2006F1CAB /* QuizResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResult.swift; sourceTree = "<group>"; };
 		9B5EF7ED2E6F5EF7006F1CAB /* StatsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsPersistence.swift; sourceTree = "<group>"; };
+		9B5EF7F12E6F6913006F1CAB /* BulkAddCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkAddCardsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -154,6 +156,7 @@
 		9B5C06542E690AFA0066DE74 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				9B5EF7F12E6F6913006F1CAB /* BulkAddCardsView.swift */,
 				9B5C06842E6F48580066DE74 /* QuizFinishView.swift */,
 				9B5C06822E6F46CF0066DE74 /* QuizView.swift */,
 				9B5C067C2E6E836E0066DE74 /* RenameDeckView.swift */,
@@ -355,6 +358,7 @@
 				9B5C06602E690BA00066DE74 /* EditCardView.swift in Sources */,
 				9B5C067F2E6E86CA0066DE74 /* Persistence.swift in Sources */,
 				9B5C06852E6F485C0066DE74 /* QuizFinishView.swift in Sources */,
+				9B5EF7F22E6F691A006F1CAB /* BulkAddCardsView.swift in Sources */,
 				9B5EF7EC2E6F5EE5006F1CAB /* QuizResult.swift in Sources */,
 				9B5C06782E6CD2590066DE74 /* AddDeckView.swift in Sources */,
 				9B5C06762E6CD02B0066DE74 /* MockData.swift in Sources */,

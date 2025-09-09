@@ -9,6 +9,10 @@ struct DeckDetailView: View {
     @State private var editingCard: Card?
     @State private var renamingDeck  = false
     @State private var startQuiz     = false
+    @State private var showBulkAdd = false
+    @State private var startStudyMarked = false
+
+
 
     @State private var searchText = ""
 
@@ -28,20 +32,17 @@ struct DeckDetailView: View {
     var body: some View {
         Group {
             if let d = liveDeck {
-                List {
+                List {	
                     HeaderSection(
                         cardCount: d.cardCount,
+                        markedCount: store.markedCount(d.id),              // ← NEW
                         onStudy: { startStudy = true },
                         onAdd: { showAddCard = true },
-                        onShuffle: {
-                            store.shuffleDeck(d.id)
-                            startStudy = true
-                        },
-                        onQuiz: {
-                            store.shuffleDeck(d.id)   // shuffle first…
-                            startQuiz = true          // …then navigate
-                        }
+                        onShuffle: { store.shuffleDeck(d.id); startStudy = true },
+                        onQuiz: { store.shuffleDeck(d.id); startQuiz = true },
+                        onStudyMarked: { startStudyMarked = true }          // ← NEW
                     )
+
 
                     CardsSection(
                         deck: d,
@@ -75,6 +76,11 @@ struct DeckDetailView: View {
                     RenameDeckView(deck: d)
                         .environmentObject(store)
                 }
+                .sheet(isPresented: $showBulkAdd) {
+                    BulkAddCardsView(deckId: d.id)
+                        .environmentObject(store)
+                }
+
                 .navigationDestination(isPresented: $startStudy) {
                     if let fresh = store.decks.first(where: { $0.id == deck.id }) {
                         StudyView(deck: fresh)
@@ -89,6 +95,16 @@ struct DeckDetailView: View {
                         ContentUnavailableView("Deck not found", systemImage: "exclamationmark.triangle")
                     }
                 }
+                .navigationDestination(isPresented: $startStudyMarked) {
+                    if let fresh = store.decks.first(where: { $0.id == deck.id }) {
+                        let onlyMarked = fresh.cards.filter { $0.isMarked }
+                        StudyView(deck: fresh, cardsOverride: onlyMarked)
+                            .environmentObject(store)
+                    } else {
+                        ContentUnavailableView("Deck not found", systemImage: "exclamationmark.triangle")
+                    }
+                }
+
                 .searchable(text: $searchText,
                             placement: .navigationBarDrawer(displayMode: .automatic),
                             prompt: "Search cards")
@@ -101,35 +117,51 @@ struct DeckDetailView: View {
 
 private struct HeaderSection: View {
     let cardCount: Int
+    let markedCount: Int                 // ← NEW
     let onStudy: () -> Void
     let onAdd: () -> Void
     let onShuffle: () -> Void
     let onQuiz: () -> Void
+    let onStudyMarked: () -> Void        // ← NEW
 
     var body: some View {
         Section {
             Text("\(cardCount) cards")
                 .foregroundStyle(.secondary)
 
-            HStack {
-                Button("Study", action: onStudy)
-                    .buttonStyle(.borderedProminent)
-                    .disabled(cardCount == 0)
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Button("Study", action: onStudy)
+                        .buttonStyle(.borderedProminent)
+                        .disabled(cardCount == 0)
 
-                Button("Add Card", action: onAdd)
-                    .buttonStyle(.bordered)
+                    Button("Shuffle", action: onShuffle)
+                        .buttonStyle(.bordered)
+                        .disabled(cardCount == 0)
 
-                Button("Shuffle", action: onShuffle)
-                    .buttonStyle(.bordered)
-                    .disabled(cardCount == 0)
+                    Button("Quiz", action: onQuiz)
+                        .buttonStyle(.bordered)
+                        .disabled(cardCount == 0)
+                }
 
-                Button("Quiz", action: onQuiz)
+                HStack {
+                    Button("Add Card", action: onAdd)
+                        .buttonStyle(.bordered)
+
+                    Button {
+                        onStudyMarked()
+                    } label: {
+                        Label("Study Marked (\(markedCount))", systemImage: "bookmark")
+                    }
                     .buttonStyle(.bordered)
-                    .disabled(cardCount == 0)
+                    .disabled(markedCount == 0)
+                }
             }
         }
     }
 }
+
+
 
 private struct CardsSection: View {
     let deck: Deck

@@ -4,7 +4,8 @@ struct StudyView: View {
     let deck: Deck
     let cardsOverride: [Card]?
 
-    // Allow calling either: StudyView(deck: d) or StudyView(deck: d, cardsOverride: d.cards.shuffled())
+    @EnvironmentObject var store: DataStore   // ← NEW
+
     init(deck: Deck, cardsOverride: [Card]? = nil) {
         self.deck = deck
         self.cardsOverride = cardsOverride
@@ -14,28 +15,34 @@ struct StudyView: View {
     @State private var showBack = false
     @State private var rightCount = 0
     @State private var wrongCount = 0
-    @State private var attempted  = 0
-    private var total: Int { cards.count }
-
-
 
     private var cards: [Card] { cardsOverride ?? deck.cards }
+    private var total: Int { cards.count }
     private var card: Card? { cards.indices.contains(index) ? cards[index] : nil }
 
-    var body: some View {
+    // 1-based position
+    private var position: Int { total == 0 ? 0 : (index % total) + 1 }
 
+    // Live isMarked from the store (so the button reflects current state)
+    private var isMarked: Bool {
+        guard let id = card?.id,
+              let d = store.decks.first(where: { $0.id == deck.id }),
+              let c = d.cards.first(where: { $0.id == id }) else { return false }
+        return c.isMarked
+    }
+
+    var body: some View {
         VStack(spacing: 24) {
             if let card {
-                Text(deck.title)
-                    .font(.headline)
+                Text(deck.title).font(.headline)
+
                 HStack {
-                    Text("\(min(attempted, total))/\(total)")
+                    Text("\(position)/\(total)")
                         .font(.subheadline.monospacedDigit())
                         .foregroundStyle(.secondary)
                 }
-                ProgressView(value: Double(min(attempted, total)), total: Double(max(total, 1)))
+                ProgressView(value: Double(position), total: Double(max(total, 1)))
                     .tint(.green)
-
 
                 ZStack {
                     RoundedRectangle(cornerRadius: 16)
@@ -43,14 +50,11 @@ struct StudyView: View {
                         .frame(height: 240)
                         .shadow(radius: 6)
 
-                    // FRONT
                     Text(card.frontText)
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                        .font(.title2).fontWeight(.semibold)
                         .multilineTextAlignment(.center)
                         .opacity(showBack ? 0 : 1)
 
-                    // BACK (counter-rotated so it isn’t mirrored when flipped)
                     Text(card.backText)
                         .font(.title2)
                         .multilineTextAlignment(.center)
@@ -62,39 +66,53 @@ struct StudyView: View {
                 .animation(.easeInOut(duration: 0.25), value: showBack)
                 .onTapGesture { showBack.toggle() }
 
+                // Back • Mark • Skip
                 HStack {
-                    Button { nextCard() } label: { Label("Back", systemImage: "arrow.uturn.left") }
+                    Button { backCard() } label: {
+                        Label("Back", systemImage: "arrow.uturn.left")
+                    }
+
                     Spacer()
-                    Button { nextCard() } label: { Label("Skip", systemImage: "arrow.uturn.right") }
+
+                    Button {
+                        toggleMark()
+                    } label: {
+                        Label(isMarked ? "Unmark" : "Mark",
+                              systemImage: isMarked ? "bookmark.fill" : "bookmark")
+                    }
+
+                    Spacer()
+
+                    Button { nextCard(asSkip: true) } label: {
+                        Label("Skip", systemImage: "arrow.uturn.right")
+                    }
                 }
                 .buttonStyle(.bordered)
                 .padding(.horizontal)
             } else {
                 ContentUnavailableView("No cards", systemImage: "rectangle.on.rectangle.slash")
             }
-            
+
+            // Scoreboard
             HStack(spacing: 24) {
                 Label("\(rightCount)", systemImage: "checkmark.circle.fill").foregroundStyle(.green)
                 Label("\(wrongCount)", systemImage: "xmark.circle.fill").foregroundStyle(.red)
             }
             .font(.headline)
 
+            // Big centered Correct/Wrong
             HStack(spacing: 20) {
-                Button {
-                    markCorrect()
-                } label: {
+                Button { markCorrect() } label: {
                     Label("Correct", systemImage: "checkmark")
-                        .font(.title3)                    // bigger text
+                        .font(.title3)
                         .frame(minWidth: 140, minHeight: 56)
                         .contentShape(Rectangle())
                 }
-                .buttonStyle(.borderedProminent)          // bold style
+                .buttonStyle(.borderedProminent)
                 .tint(.green)
-                .buttonBorderShape(.capsule)              // rounded pill
+                .buttonBorderShape(.capsule)
 
-                Button {
-                    markWrong()
-                } label: {
+                Button { markWrong() } label: {
                     Label("Wrong", systemImage: "xmark")
                         .font(.title3)
                         .frame(minWidth: 140, minHeight: 56)
@@ -104,54 +122,46 @@ struct StudyView: View {
                 .tint(.red)
                 .buttonBorderShape(.capsule)
             }
-            .frame(maxWidth: .infinity)                   // center the group
-            .controlSize(.large)                          // bump control size
+            .frame(maxWidth: .infinity)
+            .controlSize(.large)
             .padding(.top, 8)
-
-            // .disabled(!showBack) // ← optional: require flip before answering
-
         }
         .padding()
         .navigationTitle("Study")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            // Reset session state whenever StudyView appears
             index = 0
             showBack = false
+            rightCount = 0
+            wrongCount = 0
         }
     }
 
-    private func nextCard() {
+    // MARK: - Actions
+
+    private func toggleMark() {
+        guard let id = card?.id else { return }
+        store.toggleMarked(id, in: deck.id)
+    }
+
+    private func nextCard(asSkip: Bool = false) {
         showBack = false
-        wrongCount += 1
-        attempted += 1
-        if !cards.isEmpty { index = (index + 1) % cards.count }
-    }
-    
-    private func markCorrect() {
-        rightCount += 1
-        advanceAfterAnswer()
+        guard !cards.isEmpty else { return }
+        if asSkip { wrongCount += 1 }
+        index = (index + 1) % cards.count
     }
 
-    private func markWrong() {
-        wrongCount += 1
-        advanceAfterAnswer()
-    }
-
-    private func advanceAfterAnswer() {
+    private func backCard() {
         showBack = false
-        attempted += 1
-        if !cards.isEmpty {
-            index = (index + 1) % cards.count
-        }
+        guard !cards.isEmpty else { return }
+        index = (index == 0) ? (cards.count - 1) : (index - 1)
     }
-    
-    
 
+    private func markCorrect() { rightCount += 1; nextCard() }
+    private func markWrong()   { wrongCount += 1; nextCard() }
 }
 
 #Preview {
-    // Quick preview with sample data
     let deckId = UUID()
     let sampleDeck = Deck(
         id: deckId,
@@ -162,8 +172,8 @@ struct StudyView: View {
             Card(frontText: "faire — il/elle", backText: "qu’il/elle fasse", deckId: deckId)
         ]
     )
-
     return NavigationStack {
         StudyView(deck: sampleDeck)
+            .environmentObject(DataStore(useMock: true))   // needed for mark button
     }
 }
