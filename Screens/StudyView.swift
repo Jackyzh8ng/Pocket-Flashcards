@@ -4,6 +4,8 @@ struct StudyView: View {
     let deck: Deck
     let cardsOverride: [Card]?
 
+    @EnvironmentObject var store: DataStore   // ← NEW
+
     init(deck: Deck, cardsOverride: [Card]? = nil) {
         self.deck = deck
         self.cardsOverride = cardsOverride
@@ -18,15 +20,22 @@ struct StudyView: View {
     private var total: Int { cards.count }
     private var card: Card? { cards.indices.contains(index) ? cards[index] : nil }
 
-    // 1-based position for UI (shows 1/total on first card)
+    // 1-based position
     private var position: Int { total == 0 ? 0 : (index % total) + 1 }
+
+    // Live isMarked from the store (so the button reflects current state)
+    private var isMarked: Bool {
+        guard let id = card?.id,
+              let d = store.decks.first(where: { $0.id == deck.id }),
+              let c = d.cards.first(where: { $0.id == id }) else { return false }
+        return c.isMarked
+    }
 
     var body: some View {
         VStack(spacing: 24) {
             if let card {
                 Text(deck.title).font(.headline)
 
-                // Counter + progress (1-based)
                 HStack {
                     Text("\(position)/\(total)")
                         .font(.subheadline.monospacedDigit())
@@ -41,13 +50,11 @@ struct StudyView: View {
                         .frame(height: 240)
                         .shadow(radius: 6)
 
-                    // FRONT
                     Text(card.frontText)
                         .font(.title2).fontWeight(.semibold)
                         .multilineTextAlignment(.center)
                         .opacity(showBack ? 0 : 1)
 
-                    // BACK (counter-rotated)
                     Text(card.backText)
                         .font(.title2)
                         .multilineTextAlignment(.center)
@@ -59,10 +66,26 @@ struct StudyView: View {
                 .animation(.easeInOut(duration: 0.25), value: showBack)
                 .onTapGesture { showBack.toggle() }
 
+                // Back • Mark • Skip
                 HStack {
-                    Button { backCard() } label: { Label("Back", systemImage: "arrow.uturn.left") }
+                    Button { backCard() } label: {
+                        Label("Back", systemImage: "arrow.uturn.left")
+                    }
+
                     Spacer()
-                    Button { nextCard(asSkip: true) } label: { Label("Skip", systemImage: "arrow.uturn.right") }
+
+                    Button {
+                        toggleMark()
+                    } label: {
+                        Label(isMarked ? "Unmark" : "Mark",
+                              systemImage: isMarked ? "bookmark.fill" : "bookmark")
+                    }
+
+                    Spacer()
+
+                    Button { nextCard(asSkip: true) } label: {
+                        Label("Skip", systemImage: "arrow.uturn.right")
+                    }
                 }
                 .buttonStyle(.bordered)
                 .padding(.horizontal)
@@ -77,7 +100,7 @@ struct StudyView: View {
             }
             .font(.headline)
 
-            // Big centered buttons
+            // Big centered Correct/Wrong
             HStack(spacing: 20) {
                 Button { markCorrect() } label: {
                     Label("Correct", systemImage: "checkmark")
@@ -116,32 +139,26 @@ struct StudyView: View {
 
     // MARK: - Actions
 
+    private func toggleMark() {
+        guard let id = card?.id else { return }
+        store.toggleMarked(id, in: deck.id)
+    }
+
     private func nextCard(asSkip: Bool = false) {
         showBack = false
         guard !cards.isEmpty else { return }
-        if asSkip { wrongCount += 1 }       // keep your “Skip counts as wrong” behavior
-        index = (index + 1) % cards.count   // wraps; position will show 1 again after wrap
+        if asSkip { wrongCount += 1 }
+        index = (index + 1) % cards.count
     }
 
     private func backCard() {
         showBack = false
         guard !cards.isEmpty else { return }
-        if index == 0 {
-            index = cards.count - 1         // wrap backwards
-        } else {
-            index -= 1
-        }
+        index = (index == 0) ? (cards.count - 1) : (index - 1)
     }
 
-    private func markCorrect() {
-        rightCount += 1
-        nextCard()
-    }
-
-    private func markWrong() {
-        wrongCount += 1
-        nextCard()
-    }
+    private func markCorrect() { rightCount += 1; nextCard() }
+    private func markWrong()   { wrongCount += 1; nextCard() }
 }
 
 #Preview {
@@ -155,5 +172,8 @@ struct StudyView: View {
             Card(frontText: "faire — il/elle", backText: "qu’il/elle fasse", deckId: deckId)
         ]
     )
-    return NavigationStack { StudyView(deck: sampleDeck) }
+    return NavigationStack {
+        StudyView(deck: sampleDeck)
+            .environmentObject(DataStore(useMock: true))   // needed for mark button
+    }
 }

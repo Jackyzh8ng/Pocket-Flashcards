@@ -119,6 +119,27 @@ final class DataStore: ObservableObject {
         }
         decks[i] = d // publish change
     }
+    
+    // Toggle mark/unmark for a card
+    func toggleMarked(_ cardId: UUID, in deckId: UUID) {
+        guard let di = decks.firstIndex(where: { $0.id == deckId }) else { return }
+        guard let ci = decks[di].cards.firstIndex(where: { $0.id == cardId }) else { return }
+        var d = decks[di]
+        d.cards[ci].isMarked.toggle()
+        decks[di] = d
+    }
+
+    // Convenience: count & list of marked cards in a deck
+    func markedCount(_ deckId: UUID) -> Int {
+        guard let d = decks.first(where: { $0.id == deckId }) else { return 0 }
+        return d.cards.filter(\.isMarked).count
+    }
+
+    func markedCards(in deckId: UUID) -> [Card] {
+        guard let d = decks.first(where: { $0.id == deckId }) else { return [] }
+        return d.cards.filter { $0.isMarked }
+    }
+
 
 
 }

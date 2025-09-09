@@ -10,6 +10,8 @@ struct DeckDetailView: View {
     @State private var renamingDeck  = false
     @State private var startQuiz     = false
     @State private var showBulkAdd = false
+    @State private var startStudyMarked = false
+
 
 
     @State private var searchText = ""
@@ -33,18 +35,14 @@ struct DeckDetailView: View {
                 List {	
                     HeaderSection(
                         cardCount: d.cardCount,
+                        markedCount: store.markedCount(d.id),              // ← NEW
                         onStudy: { startStudy = true },
                         onAdd: { showAddCard = true },
-                        onShuffle: {
-                            store.shuffleDeck(d.id)
-//                            startStudy = true
-                        },
-                        onQuiz: {
-                            store.shuffleDeck(d.id)   // shuffle first…
-                            startQuiz = true          // …then navigate
-                        },
-                        onBulkAdd: { showBulkAdd = true }
+                        onShuffle: { store.shuffleDeck(d.id); startStudy = true },
+                        onQuiz: { store.shuffleDeck(d.id); startQuiz = true },
+                        onStudyMarked: { startStudyMarked = true }          // ← NEW
                     )
+
 
                     CardsSection(
                         deck: d,
@@ -97,6 +95,16 @@ struct DeckDetailView: View {
                         ContentUnavailableView("Deck not found", systemImage: "exclamationmark.triangle")
                     }
                 }
+                .navigationDestination(isPresented: $startStudyMarked) {
+                    if let fresh = store.decks.first(where: { $0.id == deck.id }) {
+                        let onlyMarked = fresh.cards.filter { $0.isMarked }
+                        StudyView(deck: fresh, cardsOverride: onlyMarked)
+                            .environmentObject(store)
+                    } else {
+                        ContentUnavailableView("Deck not found", systemImage: "exclamationmark.triangle")
+                    }
+                }
+
                 .searchable(text: $searchText,
                             placement: .navigationBarDrawer(displayMode: .automatic),
                             prompt: "Search cards")
@@ -109,11 +117,12 @@ struct DeckDetailView: View {
 
 private struct HeaderSection: View {
     let cardCount: Int
+    let markedCount: Int                 // ← NEW
     let onStudy: () -> Void
     let onAdd: () -> Void
     let onShuffle: () -> Void
     let onQuiz: () -> Void
-    let onBulkAdd: () -> Void
+    let onStudyMarked: () -> Void        // ← NEW
 
     var body: some View {
         Section {
@@ -136,13 +145,22 @@ private struct HeaderSection: View {
                 }
 
                 HStack {
-                    Button("Add Card", action: onAdd).buttonStyle(.bordered)
-                    Button("Bulk Add", action: onBulkAdd).buttonStyle(.bordered)
+                    Button("Add Card", action: onAdd)
+                        .buttonStyle(.bordered)
+
+                    Button {
+                        onStudyMarked()
+                    } label: {
+                        Label("Study Marked (\(markedCount))", systemImage: "bookmark")
+                    }
+                    .buttonStyle(.bordered)
+                    .disabled(markedCount == 0)
                 }
             }
         }
     }
 }
+
 
 
 private struct CardsSection: View {
