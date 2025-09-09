@@ -9,10 +9,8 @@ struct DeckDetailView: View {
     @State private var editingCard: Card?
     @State private var renamingDeck  = false
     @State private var startQuiz     = false
-    @State private var showBulkAdd = false
+    @State private var showBulkAdd   = false
     @State private var startStudyMarked = false
-
-
 
     @State private var searchText = ""
 
@@ -32,18 +30,22 @@ struct DeckDetailView: View {
     var body: some View {
         Group {
             if let d = liveDeck {
-                List {	
+                List {
+                    // Header actions (no Study/Quiz here)
                     HeaderSection(
                         cardCount: d.cardCount,
-                        markedCount: store.markedCount(d.id),              // ← NEW
-                        onStudy: { startStudy = true },
-                        onAdd: { showAddCard = true },
+                        markedCount: store.markedCount(d.id),
                         onShuffle: { store.shuffleDeck(d.id); startStudy = true },
-                        onQuiz: { store.shuffleDeck(d.id); startQuiz = true },
-                        onStudyMarked: { startStudyMarked = true }          // ← NEW
+                        onStudyMarked: { startStudyMarked = true }
                     )
 
+                    // Add & Bulk Add row right above the cards
+                    AddRowSection(
+                        onAdd: { showAddCard = true },
+                        onBulkAdd: { showBulkAdd = true }
+                    )
 
+                    // Cards list (scrollable)
                     CardsSection(
                         deck: d,
                         cards: filteredCards(for: d),
@@ -58,39 +60,65 @@ struct DeckDetailView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) { EditButton() }
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button { renamingDeck = true } label: {
-                            Label("Rename", systemImage: "pencil")
-                        }
+                        Button { renamingDeck = true } label: { Label("Rename", systemImage: "pencil") }
                     }
+                }
+                // Bottom bar: Study + Quiz
+                .safeAreaInset(edge: .bottom) {
+                    VStack(spacing: 0) {
+                        Divider()
+                        HStack(spacing: 12) {
+                            Button {
+                                startStudy = true
+                            } label: {
+                                Label("Study \(d.cardCount)", systemImage: "book.fill")
+                                    .frame(maxWidth: .infinity, minHeight: 56)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .disabled(d.cardCount == 0)
+
+                            Button {
+                                store.shuffleDeck(d.id)
+                                startQuiz = true
+                            } label: {
+                                Label("Quiz", systemImage: "exclamationmark.triangle.fill")
+                                    .frame(maxWidth: .infinity, minHeight: 56)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.red)
+                            .disabled(d.cardCount == 0)
+                        }
+                        .padding(.horizontal)
+                        .padding(.top, 8)
+                        .padding(.bottom, 4)
+                    }
+                    .background(.bar)
                 }
                 // Sheets / navigation
                 .sheet(isPresented: $showAddCard) {
-                    EditCardView(deck: d)
-                        .environmentObject(store)
+                    EditCardView(deck: d).environmentObject(store)
                 }
                 .sheet(item: $editingCard) { card in
-                    EditCardView(deck: d, card: card)
-                        .environmentObject(store)
+                    EditCardView(deck: d, card: card).environmentObject(store)
                 }
                 .sheet(isPresented: $renamingDeck) {
-                    RenameDeckView(deck: d)
-                        .environmentObject(store)
+                    RenameDeckView(deck: d).environmentObject(store)
                 }
                 .sheet(isPresented: $showBulkAdd) {
-                    BulkAddCardsView(deckId: d.id)
-                        .environmentObject(store)
+                    BulkAddCardsView(deckId: d.id).environmentObject(store)
                 }
-
                 .navigationDestination(isPresented: $startStudy) {
                     if let fresh = store.decks.first(where: { $0.id == deck.id }) {
-                        StudyView(deck: fresh)
+                        StudyView(deck: fresh).environmentObject(store)
                     } else {
                         ContentUnavailableView("Deck not found", systemImage: "exclamationmark.triangle")
                     }
                 }
                 .navigationDestination(isPresented: $startQuiz) {
                     if let fresh = store.decks.first(where: { $0.id == deck.id }) {
-                        QuizView(deck: fresh)   // <— new view
+                        QuizView(deck: fresh)
+                            .navigationBarBackButtonHidden(true)
+                            .environmentObject(store)
                     } else {
                         ContentUnavailableView("Deck not found", systemImage: "exclamationmark.triangle")
                     }
@@ -104,7 +132,6 @@ struct DeckDetailView: View {
                         ContentUnavailableView("Deck not found", systemImage: "exclamationmark.triangle")
                     }
                 }
-
                 .searchable(text: $searchText,
                             placement: .navigationBarDrawer(displayMode: .automatic),
                             prompt: "Search cards")
@@ -115,53 +142,60 @@ struct DeckDetailView: View {
     }
 }
 
+// MARK: - Sections
+
 private struct HeaderSection: View {
     let cardCount: Int
-    let markedCount: Int                 // ← NEW
-    let onStudy: () -> Void
-    let onAdd: () -> Void
+    let markedCount: Int
     let onShuffle: () -> Void
-    let onQuiz: () -> Void
-    let onStudyMarked: () -> Void        // ← NEW
+    let onStudyMarked: () -> Void
 
     var body: some View {
         Section {
             Text("\(cardCount) cards")
                 .foregroundStyle(.secondary)
 
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Button("Study", action: onStudy)
-                        .buttonStyle(.borderedProminent)
-                        .disabled(cardCount == 0)
-
-                    Button("Shuffle", action: onShuffle)
-                        .buttonStyle(.bordered)
-                        .disabled(cardCount == 0)
-
-                    Button("Quiz", action: onQuiz)
-                        .buttonStyle(.bordered)
-                        .disabled(cardCount == 0)
+            HStack {
+                Button { onShuffle() } label: {
+                    Label("Shuffle & Study", systemImage: "shuffle")
                 }
+                .buttonStyle(.bordered)
+                .disabled(cardCount == 0)
 
-                HStack {
-                    Button("Add Card", action: onAdd)
-                        .buttonStyle(.bordered)
-
-                    Button {
-                        onStudyMarked()
-                    } label: {
-                        Label("Study Marked (\(markedCount))", systemImage: "bookmark")
-                    }
-                    .buttonStyle(.bordered)
-                    .disabled(markedCount == 0)
+                Button {
+                    onStudyMarked()
+                } label: {
+                    Label("Study Marked (\(markedCount))", systemImage: "bookmark")
                 }
+                .buttonStyle(.bordered)
+                .disabled(markedCount == 0)
             }
         }
     }
 }
 
+private struct AddRowSection: View {
+    let onAdd: () -> Void
+    let onBulkAdd: () -> Void
 
+    var body: some View {
+        Section {
+            HStack {
+                Button(action: onAdd) {
+                    Label("Add Card", systemImage: "plus")
+                }
+                .buttonStyle(.bordered)
+
+                Spacer(minLength: 12)
+
+                Button(action: onBulkAdd) {
+                    Label("Bulk Add", systemImage: "text.badge.plus")
+                }
+                .buttonStyle(.bordered)
+            }
+        }
+    }
+}
 
 private struct CardsSection: View {
     let deck: Deck
