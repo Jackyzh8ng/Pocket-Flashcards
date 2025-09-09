@@ -30,7 +30,7 @@ struct DeckDetailView: View {
     var body: some View {
         Group {
             if let d = liveDeck {
-                List {
+                List {	
                     HeaderSection(
                         cardCount: d.cardCount,
                         onStudy: { startStudy = true },

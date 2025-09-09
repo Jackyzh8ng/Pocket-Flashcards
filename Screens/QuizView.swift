@@ -104,6 +104,8 @@ struct QuizView: View {
         .padding()
         .navigationTitle("Quiz")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+
 
         // Top-bar Quit button
         .toolbar {
