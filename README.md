@@ -1,0 +1,1 @@
+A SwiftUI app for flashcards - Say goodbye to hours of handwriting flash cards. With the bulk add feature, a user can create many flashcards in one go for any topic. Additionally, with the quiz mode, users can test their knowledge and learning.
