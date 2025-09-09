@@ -3,6 +3,8 @@ import Combine
 
 final class DataStore: ObservableObject {
     @Published private(set) var decks: [Deck] = []
+    @Published private(set) var quizHistory: [QuizResult] = []
+
 
     private var cancellables = Set<AnyCancellable>()
     private let autosave: Bool
@@ -11,6 +13,7 @@ final class DataStore: ObservableObject {
     /// `autosave`: persist on every change (debounced)
     init(useMock: Bool = true, autosave: Bool = true) {
         self.autosave = autosave
+        self.quizHistory = StatsPersistence.load()
 
         // Load from disk if present, else seed (optionally)
         if let saved = try? Persistence.load(), !saved.isEmpty {
@@ -139,6 +142,21 @@ final class DataStore: ObservableObject {
         guard let d = decks.first(where: { $0.id == deckId }) else { return [] }
         return d.cards.filter { $0.isMarked }
     }
+    
+    func recordQuizResult(deckId: UUID, correct: Int, wrong: Int, total: Int, elapsedSeconds: Int) {
+        let result = QuizResult(
+            id: UUID(),
+            deckId: deckId,
+            date: Date(),
+            correct: correct,
+            wrong: wrong,
+            total: total,
+            elapsedSeconds: elapsedSeconds
+        )
+        quizHistory.insert(result, at: 0)       // newest first
+        StatsPersistence.save(quizHistory)
+    }
+
 
 
 

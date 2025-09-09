@@ -5,6 +5,7 @@ struct QuizView: View {
 
     @Environment(\.dismiss) private var dismissQuiz
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var store: DataStore
 
 
     @State private var index = 0
@@ -125,14 +126,14 @@ struct QuizView: View {
             Text("Your progress for this quiz will be lost.")
         }
 
-        // ⏱️ Start/reset the timer when the view appears
+        //  Start/reset the timer when the view appears
         .onAppear {
             index = 0; correct = 0; wrong = 0; showBack = false
             startDate = Date()
             elapsedSeconds = 0
         }
 
-        // ⏱️ Tick every second while not finished
+        // Tick every second while not finished
         .onReceive(ticker) { _ in
             guard !finished else { return }
             elapsedSeconds = max(0, Int(Date().timeIntervalSince(startDate)))
@@ -141,12 +142,14 @@ struct QuizView: View {
         // Navigate to results when finished
         .navigationDestination(isPresented: $finished) {
             QuizFinishView(
+                deckId: deck.id,
                 correct: correct,
                 wrong: wrong,
                 total: total,
                 elapsedSeconds: elapsedSeconds,
                 onDone: { dismissQuiz() }
             )
+            .environmentObject(store)
         }
     }
 

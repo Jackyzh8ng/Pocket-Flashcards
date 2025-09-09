@@ -36,7 +36,7 @@ struct DeckDetailView: View {
                     HeaderBlock(
                         cardCount: d.cardCount,
                         markedCount: store.markedCount(d.id),
-                        onShuffleStudy: { store.shuffleDeck(d.id); startStudy = true },
+                        onShuffleStudy: { store.shuffleDeck(d.id); startStudy = false },
                         onStudyMarked: { startStudyMarked = true }
                     )
                     .padding(.horizontal)
@@ -127,7 +127,7 @@ private struct HeaderBlock: View {
 
             HStack {
                 Button(action: onShuffleStudy) {
-                    Label("Shuffle & Study", systemImage: "shuffle")
+                    Label("Shuffle", systemImage: "shuffle")
                 }
                 .buttonStyle(.bordered)
                 .disabled(cardCount == 0)

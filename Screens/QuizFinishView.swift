@@ -1,45 +1,37 @@
 import SwiftUI
 
 struct QuizFinishView: View {
+    let deckId: UUID
     let correct: Int
     let wrong: Int
     let total: Int
     let elapsedSeconds: Int
-    var onDone: (() -> Void)? = nil   // <-- callback to pop QuizView
+    var onDone: (() -> Void)? = nil
 
+    @EnvironmentObject var store: DataStore
     @Environment(\.dismiss) private var dismiss
 
-    private var scorePct: Double {
-        guard total > 0 else { return 0 }
-        return Double(correct) / Double(total)
-    }
+    private var scorePct: Double { total > 0 ? Double(correct) / Double(total) : 0 }
 
     var body: some View {
         VStack(spacing: 24) {
-            Text("Quiz Complete 🎉")
-                .font(.title2).bold()
+            Text("Quiz Complete 🎉").font(.title2).bold()
 
             VStack(alignment: .leading, spacing: 8) {
-                Label("\(correct) Correct", systemImage: "checkmark.circle.fill")
-                    .foregroundStyle(.green)
-                Label("\(wrong) Wrong", systemImage: "xmark.circle.fill")
-                    .foregroundStyle(.red)
-                Label("Time \(formatTime(elapsedSeconds))", systemImage: "clock")
-                    .foregroundStyle(.secondary)
-                Label("\(Int((scorePct * 100).rounded()))% Score", systemImage: "percent")
-                    .foregroundStyle(.secondary)
+                Label("\(correct) Correct", systemImage: "checkmark.circle.fill").foregroundStyle(.green)
+                Label("\(wrong) Wrong", systemImage: "xmark.circle.fill").foregroundStyle(.red)
+                Label("Time \(formatTime(elapsedSeconds))", systemImage: "clock").foregroundStyle(.secondary)
+                Label("\(Int((scorePct * 100).rounded()))% Score", systemImage: "percent").foregroundStyle(.secondary)
             }
             .font(.headline)
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            ProgressView(value: scorePct)
-                .progressViewStyle(.linear)
-                .tint(.green)
+            ProgressView(value: scorePct).progressViewStyle(.linear).tint(.green)
 
             Button {
-                // 1) Pop QuizFinishView
+                // Save result, then pop Results and Quiz to return to DeckDetailView
+                store.recordQuizResult(deckId: deckId, correct: correct, wrong: wrong, total: total, elapsedSeconds: elapsedSeconds)
                 dismiss()
-                // 2) Then pop QuizView (back to DeckDetailView)
                 DispatchQueue.main.async { onDone?() }
             } label: {
                 Label("Done", systemImage: "checkmark")
@@ -52,15 +44,13 @@ struct QuizFinishView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    private func formatTime(_ seconds: Int) -> String {
-        let m = seconds / 60
-        let s = seconds % 60
-        return String(format: "%02d:%02d", m, s)
-    }
+    private func formatTime(_ s: Int) -> String { String(format: "%02d:%02d", s/60, s%60) }
 }
 
 #Preview {
-    NavigationStack {
-        QuizFinishView(correct: 7, wrong: 3, total: 10, elapsedSeconds: 95)
+    let store = DataStore(useMock: true)
+    return NavigationStack {
+        QuizFinishView(deckId: UUID(), correct: 7, wrong: 3, total: 10, elapsedSeconds: 95)
+            .environmentObject(store)
     }
 }
